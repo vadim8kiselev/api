@@ -7,10 +7,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.kiselev</groupId>
     <artifactId>api</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>vk</module>
+        <module>elasticsearch</module>
     </modules>
 
     <properties>
