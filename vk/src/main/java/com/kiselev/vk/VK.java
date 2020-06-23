@@ -1,44 +1,83 @@
 package com.kiselev.vk;
 
 import com.google.gson.Gson;
-import com.kiselev.vk.api.friend.FriendAPI;
-import com.kiselev.vk.api.message.MessageAPI;
-import com.kiselev.vk.api.user.UserAPI;
+import com.kiselev.vk.api.*;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.UserActor;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class VK {
 
-    private VkApiClient client;
+    private final VkApiClient client;
 
-    private UserActor user;
-
-    private VK(VkApiClient client, UserActor user) {
-        this.client = client;
-        this.user = user;
-    }
+    private final UserActor user;
 
     public static VK auth(Integer userId, String accessToken) {
         return new VK(
                 new VkApiClient(
                         HttpTransportClient.getInstance(),
                         new Gson(),
-                        Integer.MAX_VALUE
+                        3
                 ),
                 new UserActor(userId, accessToken)
         );
     }
 
     public MessageAPI messages() {
-        return MessageAPI.create(client, user);
+        return MessageAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
     }
 
     public UserAPI users() {
-        return UserAPI.create(client, user);
+        return UserAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
     }
 
     public FriendAPI friends() {
-        return FriendAPI.create(client, user);
+        return FriendAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
+    }
+
+    public GroupAPI groups() {
+        return GroupAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
+    }
+
+    public AccountAPI account() {
+        return AccountAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
+    }
+
+    public LikeAPI likes() {
+        return LikeAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
+    }
+
+    public SearchAPI search() {
+        return SearchAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
+    }
+
+    public StatusAPI status() {
+        return StatusAPI.builder()
+                .client(client)
+                .user(user)
+                .build();
     }
 }
