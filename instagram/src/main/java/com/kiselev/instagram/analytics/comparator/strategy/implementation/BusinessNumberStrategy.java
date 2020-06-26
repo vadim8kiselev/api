@@ -2,18 +2,22 @@ package com.kiselev.instagram.analytics.comparator.strategy.implementation;
 
 import com.kiselev.instagram.analytics.comparator.strategy.BusinessStrategy;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
-public class BusinessNumberStrategy implements BusinessStrategy<String> {
+public class BusinessNumberStrategy implements BusinessStrategy {
 
     @Override
-    public String execute(Object object, Object tcejbo) {
+    public List<String> execute(Object object, Object tcejbo) {
         boolean equals = Objects.equals(object, tcejbo);
         if (!equals) {
-            return String.format(
-                    "Number value changed from [%s] to [%s]",
-                    object,
-                    tcejbo
+            return Collections.singletonList(
+                    String.format(
+                            "Number value changed from [%s] to [%s]",
+                            object,
+                            tcejbo
+                    )
             );
         }
         return null;

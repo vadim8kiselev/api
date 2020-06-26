@@ -1,6 +1,8 @@
 package com.kiselev.instagram.analytics.comparator.strategy;
 
-public interface BusinessStrategy<Message> {
+import java.util.List;
 
-    Message execute(Object object, Object tcejbo);
+public interface BusinessStrategy {
+
+    List<String> execute(Object object, Object tcejbo);
 }

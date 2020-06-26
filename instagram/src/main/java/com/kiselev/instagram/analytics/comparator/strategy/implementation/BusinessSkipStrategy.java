@@ -2,10 +2,13 @@ package com.kiselev.instagram.analytics.comparator.strategy.implementation;
 
 import com.kiselev.instagram.analytics.comparator.strategy.BusinessStrategy;
 
-public class BusinessSkipStrategy implements BusinessStrategy<Void> {
+import java.util.Collections;
+import java.util.List;
+
+public class BusinessSkipStrategy implements BusinessStrategy {
 
     @Override
-    public Void execute(Object object, Object tcejbo) {
-        return null;
+    public List<String> execute(Object object, Object tcejbo) {
+        return Collections.emptyList();
     }
 }

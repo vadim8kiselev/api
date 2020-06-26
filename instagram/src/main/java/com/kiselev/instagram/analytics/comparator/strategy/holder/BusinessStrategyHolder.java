@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class BusinessStrategyHolder {
 
-    private static final Map<BusinessType, BusinessStrategy<?>> STRATEGIES =
+    private static final Map<BusinessType, BusinessStrategy> STRATEGIES =
             Maps.newHashMap();
 
     static {
@@ -21,37 +21,31 @@ public class BusinessStrategyHolder {
         STRATEGIES.put(BusinessType.OBJECT, new BusinessObjectStrategy());
     }
 
-    public static BusinessStrategy<?> strategy(BusinessType businessType) {
+    public static BusinessStrategy strategy(BusinessType businessType) {
         return STRATEGIES.get(businessType);
     }
 
-    @SuppressWarnings("unchecked")
-    public static BusinessStrategy<String> nullValue() {
-        return (BusinessStrategy<String>) STRATEGIES.get(BusinessType.NULL);
+    public static BusinessStrategy nullValue() {
+        return STRATEGIES.get(BusinessType.NULL);
     }
 
-    @SuppressWarnings("unchecked")
-    public static BusinessStrategy<Void> skip() {
-        return (BusinessStrategy<Void>) STRATEGIES.get(BusinessType.SKIP);
+    public static BusinessStrategy skip() {
+        return STRATEGIES.get(BusinessType.SKIP);
     }
 
-    @SuppressWarnings("unchecked")
-    public static BusinessStrategy<String> constant() {
-        return (BusinessStrategy<String>) STRATEGIES.get(BusinessType.CONSTANT);
+    public static BusinessStrategy constant() {
+        return STRATEGIES.get(BusinessType.CONSTANT);
     }
 
-    @SuppressWarnings("unchecked")
-    public static BusinessStrategy<String> text() {
-        return (BusinessStrategy<String>) STRATEGIES.get(BusinessType.TEXT);
+    public static BusinessStrategy text() {
+        return STRATEGIES.get(BusinessType.TEXT);
     }
 
-    @SuppressWarnings("unchecked")
-    public static BusinessStrategy<String> number() {
-        return (BusinessStrategy<String>) STRATEGIES.get(BusinessType.NUMBER);
+    public static BusinessStrategy number() {
+        return STRATEGIES.get(BusinessType.NUMBER);
     }
 
-    @SuppressWarnings("unchecked")
-    public static BusinessStrategy<Map<String, Object>> object() {
-        return (BusinessStrategy<Map<String, Object>>) STRATEGIES.get(BusinessType.OBJECT);
+    public static BusinessStrategy object() {
+        return STRATEGIES.get(BusinessType.OBJECT);
     }
 }

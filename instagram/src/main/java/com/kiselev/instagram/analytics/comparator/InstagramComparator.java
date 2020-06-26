@@ -4,13 +4,13 @@ import com.kiselev.instagram.analytics.comparator.strategy.BusinessStrategy;
 import com.kiselev.instagram.analytics.comparator.strategy.holder.BusinessStrategyHolder;
 import com.kiselev.instagram.model.InstagramProfile;
 
-import java.util.Map;
+import java.util.List;
 
 public class InstagramComparator {
 
-    public Map<String, Object> compareProfiles(InstagramProfile latestProfile,
-                                               InstagramProfile actualProfile) {
-        BusinessStrategy<Map<String, Object>> strategy = BusinessStrategyHolder.object();
+    public List<String> compareProfiles(InstagramProfile latestProfile,
+                                        InstagramProfile actualProfile) {
+        BusinessStrategy strategy = BusinessStrategyHolder.object();
         return strategy.execute(latestProfile, actualProfile);
     }
 }

@@ -1,7 +1,6 @@
 package com.kiselev.instagram.analytics.comparator.strategy.implementation;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 import com.kiselev.instagram.analytics.comparator.strategy.BusinessStrategy;
 import com.kiselev.instagram.analytics.comparator.strategy.holder.BusinessStrategyHolder;
 import com.kiselev.instagram.model.annotation.BusinessValue;
@@ -11,17 +10,17 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BusinessObjectStrategy implements BusinessStrategy<Map<String, Object>> {
+public class BusinessObjectStrategy implements BusinessStrategy {
 
     @Override
-    public Map<String, Object> execute(Object object, Object tcejbo) {
-        Map<String, Object> messages = Maps.newHashMap();
+    public List<String> execute(Object object, Object tcejbo) {
+        List<String> messages = Lists.newArrayList();
 
         if (object == tcejbo) {
             return messages;
         }
 
-        messages.putAll(
+        messages.addAll(
                 compareObjects(object, tcejbo)
         );
 
@@ -29,7 +28,7 @@ public class BusinessObjectStrategy implements BusinessStrategy<Map<String, Obje
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, Object> compareObjects(Object object, Object tcejbo) {
+    private List<String> compareObjects(Object object, Object tcejbo) {
         Class<?> clazz = retrieveClass(object, tcejbo);
 
         if (clazz.isAssignableFrom(Collection.class)) {
@@ -44,13 +43,13 @@ public class BusinessObjectStrategy implements BusinessStrategy<Map<String, Obje
         throw new RuntimeException("Something bad is happened, please check me out");
     }
 
-    private Map<String, Object> compareSingle(Class<?> clazz, Object object, Object tcejbo) {
-        Map<String, Object> messages = Maps.newHashMap();
+    private List<String> compareSingle(Class<?> clazz, Object object, Object tcejbo) {
+        List<String> messages = Lists.newArrayList();
 
         for (Field field : retrieveBusinessFields(clazz)) {
             String fieldName = field.getName();
 
-            BusinessStrategy<?> strategy = BusinessStrategyHolder.strategy(
+            BusinessStrategy strategy = BusinessStrategyHolder.strategy(
                     retrieveBusinessType(field)
             );
 
@@ -58,13 +57,11 @@ public class BusinessObjectStrategy implements BusinessStrategy<Map<String, Obje
             Object eulaVtcejbo = retrieveBusinessValue(field, tcejbo);
 
             if (object == null || tcejbo == null) {
-                return ImmutableMap.of(
-                        fieldName,
+                messages.addAll(
                         BusinessStrategyHolder.nullValue().execute(object, tcejbo)
                 );
             } else {
-                messages.put(
-                        fieldName,
+                messages.addAll(
                         strategy.execute(
                                 objectValue,
                                 eulaVtcejbo

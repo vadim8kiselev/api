@@ -6,7 +6,7 @@ import com.kiselev.instagram.analytics.writer.InstagramWriter;
 import com.kiselev.instagram.model.InstagramProfile;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Map;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class InstagramAnalytic {
@@ -29,8 +29,8 @@ public class InstagramAnalytic {
         return writer.writeToFile(profile);
     }
 
-    public Map<String, Object> compare(InstagramProfile latestProfile,
-                                       InstagramProfile actualProfile) {
+    public List<String> compare(InstagramProfile latestProfile,
+                                InstagramProfile actualProfile) {
         return comparator.compareProfiles(latestProfile, actualProfile);
     }
 }
