@@ -12,7 +12,7 @@
     <artifactId>elasticsearch</artifactId>
 
     <properties>
-        <elastic.version>6.2.0</elastic.version>
+        <elastic.version>6.8.13</elastic.version>
         <elastic.client.version>6.0.0</elastic.client.version>
     </properties>
 
